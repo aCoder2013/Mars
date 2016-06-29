@@ -5,8 +5,7 @@ import com.song.core.RepositoryMetadata;
 import com.song.support.ResolvableType;
 import com.song.utils.Assert;
 
-import org.apache.commons.lang.StringUtils;
-
+import java.beans.Introspector;
 import java.io.Serializable;
 
 /**
@@ -33,7 +32,7 @@ public class DefaultRepositoryMetadata implements RepositoryMetadata {
   }
 
   private void resolve() {
-    this.name = StringUtils.uncapitalize(repositoryType.getSimpleName());
+    this.name = Introspector.decapitalize(repositoryType.getSimpleName());
     ResolvableType resolvableType = ResolvableType.forClass(repositoryType).as(CrudRepository.class);
     this.domainType = resolvableType.getGeneric(0).getResolved();
     this.idType = (Class<? extends Serializable>) resolvableType.getGeneric(1).getResolved();

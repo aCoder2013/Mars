@@ -14,3 +14,8 @@ hs_err_pid*
 Mars.iml
 .java-version
 .idea/
+mars-common/com.mars.common.iml
+mars-common/mars-common.iml
+mars-common/.java-version
+mars-common/target
+target
