@@ -34,8 +34,10 @@ public class DefaultRepositoryMetadata implements RepositoryMetadata {
   private void resolve() {
     this.name = Introspector.decapitalize(repositoryType.getSimpleName());
     ResolvableType resolvableType = ResolvableType.forClass(repositoryType).as(CrudRepository.class);
-    this.domainType = resolvableType.getGeneric(0).getResolved();
-    this.idType = (Class<? extends Serializable>) resolvableType.getGeneric(1).getResolved();
+    if (resolvableType.getGenerics().length == 2) {
+      this.domainType = resolvableType.getGeneric(0).getResolved();
+      this.idType = (Class<? extends Serializable>) resolvableType.getGeneric(1).getResolved();
+    }
   }
 
   @Override
