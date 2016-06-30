@@ -5,21 +5,23 @@ import com.song.core.CrudRepository;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 /**
  * Created by song on 16/6/22.
  */
 public class DefaultCrudRepository<T, ID extends Serializable> implements CrudRepository<T, ID> {
 
+  private EntityManager entityManager;
 
-  @Override
-  public void save() {
-    System.out.println("Test");
+  public DefaultCrudRepository(EntityManager entityManager) {
+    this.entityManager = entityManager;
   }
 
   @Override
   public T save(T entity) {
-    System.out.println("Save");
-    return null;
+    this.entityManager.persist(entity);
+    return entity;
   }
 
   @Override

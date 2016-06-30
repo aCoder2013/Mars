@@ -19,3 +19,5 @@ mars-common/mars-common.iml
 mars-common/.java-version
 mars-common/target
 target
+/mars-common/com.mars.common.iml
+/mars-common/target/

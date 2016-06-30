@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
@@ -41,9 +42,10 @@ public class MarsAutoConfigure {
 
   @Bean
   @ConditionalOnMissingBean
-  public EntityManagerFactory entityManager() {
+  public EntityManager entityManager() {
     Assert.notNull(this.localContainerEntityManagerFactoryBean);
     EntityManagerFactory factory = this.localContainerEntityManagerFactoryBean.getObject();
-    return factory;
+    System.out.println(factory.getMetamodel());
+    return factory.createEntityManager();
   }
 }

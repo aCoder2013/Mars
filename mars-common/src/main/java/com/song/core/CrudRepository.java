@@ -1,14 +1,15 @@
 package com.song.core;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by song on 16/6/18.
  */
+@Transactional
 public interface CrudRepository<T, ID extends Serializable> {
-
-  void save();
 
   T save(T entity);
 

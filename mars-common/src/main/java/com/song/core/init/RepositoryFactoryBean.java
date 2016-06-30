@@ -2,8 +2,12 @@ package com.song.core.init;
 
 import com.song.core.CrudRepository;
 import com.song.core.support.DefaultCrudRepository;
+import com.song.utils.Assert;
 
 import org.springframework.beans.factory.FactoryBean;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 
 /**
@@ -13,14 +17,21 @@ public class RepositoryFactoryBean implements FactoryBean {
 
   private Class<?> interfaceType;
 
+  private EntityManager entityManager;
+
   public RepositoryFactoryBean(Class<?> interfaceType) {
     this.interfaceType = interfaceType;
   }
 
+  @PersistenceContext
+  public void setEntityManager(EntityManager entityManager) {
+    this.entityManager = entityManager;
+  }
 
   @Override
   public Object getObject() throws Exception {
-    return ProxyFactory.getInstance().addInterface(this.interfaceType).setTarget(new DefaultCrudRepository<>())
+    Assert.notNull(this.entityManager, "EntityManager must not be null");
+    return ProxyFactory.getInstance().addInterface(this.interfaceType).setTarget(new DefaultCrudRepository<>(entityManager))
             .getProxy();
   }
 

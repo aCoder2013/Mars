@@ -48,6 +48,7 @@ public class JpaRepositoryRegister implements BeanFactoryAware, ImportBeanDefini
             .withAnnotation(DAO.class)
             .getClasses();
     RepositoryMetadataFactory.fillWith(classes);
+
     Set<RepositoryMetadata> metadataSet = RepositoryMetadataFactory.getAll();
     for (RepositoryMetadata metadata : metadataSet) {
       if (metadata != null) {
